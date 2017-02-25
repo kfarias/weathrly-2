@@ -1,7 +1,26 @@
 @import 'variables';
 
 body {
-  background-color: $backgroundColor;
-  font-family: 'Rambla', sans-serif;
+  background: $backgroundColor ;
+  font-family: $bodyFont;
   color: $textColor;
 }
+
+.page-title {
+  font-size: 50px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.user-input, .submit-btn {
+  display: block;
+  width: 150px;
+  text-align: center;
+  // margin-left:50%;
+  border: none;
+
+}
+
+// .current-Weather {
+// background-image: url('/images/cardBackground.svg');
+// }
