@@ -4,8 +4,8 @@
   "description": "A good enough starter kit for a React project, I guess.",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server",
-    "build": "webpack.js",
+    "start": "webpack-dev-server --hot --inline --history-api-fallback" ,
+    "build": "webpack",
     "test": "mocha --require test/helpers/setup.js"
   },
   "repository": {
@@ -50,6 +50,10 @@
     "sinon": "^1.17.7",
     "style-loader": "^0.13.1",
     "webpack": "^1.12.14",
-    "webpack-dev-server": "^1.14.1"
+    "webpack-dev-server": "^1.14.1",
+    "image-webpack-loader": "^3.2.0"
+  },
+  "dependencies": {
+    "image-webpack-loader": "^3.2.0"
   }
 }

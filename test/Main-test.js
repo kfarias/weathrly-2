@@ -35,10 +35,10 @@ describe('testing with enzyme', () => {
   it('should render a section to the dom', () => {
     const wrapper = shallow(<Weatherly/>);
     assert.equal(wrapper.type(), 'section');
-  })
+  });
 
   it.skip('card should render in a div', () => {
-    const wrapper = shallow(<Card currentWeather={currentWeather}/>);
+    const wrapper = shallow(<Card currentWeather={ currentWeather }/>);
     assert.equal(wrapper.type(), 'div');
   });
 
@@ -57,10 +57,10 @@ describe('testing with enzyme', () => {
     expect(wrapper.find(Weatherly)).to.have.prop(source)
   });
 
-  it.skip('weather should update state of input on change ', () => {
+  it.only('weather should update state of input on change ', () => {
     const onInputChange = sinon.spy();
-    const wrapper = mount(<input updatelocation ={onInputChange}/>);
-    expect(onInputChange.calledOnce).to.equal(false);
+    const wrapper = mount(<Input updatelocation ={onInputChange}/>);
+    expect(onInputChange.calledOnce).to.equal(false); 
     wrapper.find('.user-input').simulate('change');
     expect(onInputChange.calledOnce).to.equal(true);
   });
