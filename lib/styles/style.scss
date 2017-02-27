@@ -1,7 +1,10 @@
 @import 'variables';
 
 body {
-  background: url(https://static.pexels.com/photos/1227/night-dark-blur-blurred.jpg) ;
+  background-color: transparent;
+  background-image: url('/images/cardBackground.svg') ;
+  width: 100vw;
+  height: 100vh;
   font-family: $bodyFont;
   color: $textColor;
 }
