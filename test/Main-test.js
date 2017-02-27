@@ -6,7 +6,8 @@ import Weatherly from '../lib/Components/Weatherly';
 import Card from '../lib/Components/Card';
 import WeatherCards from '../lib/Components/WeatherCards';
 import sinon from 'sinon';
-
+import Input from '../lib/Components/Input';
+import locus from 'locus'
 
 
 describe('testing with enzyme', () => {
@@ -52,18 +53,32 @@ describe('testing with enzyme', () => {
     expect(wrapper.find(Weatherly)).to.have.length(1)
   });
 
-  it.skip('Weatherly should have a prop of source', () => {
-    const wrapper = shallow(<Weatherly/>);
-    expect(wrapper.find(Weatherly)).to.have.prop(source)
+  it('Weatherly should have a prop of source', () => {
+    const wrapper = shallow(<Weatherly source='api'/>);
+    expect(wrapper.props().source).to.equal('api');
   });
 
-  it.only('weather should update state of input on change ', () => {
+  it('weather should update state of input on change ', () => {
     const onInputChange = sinon.spy();
-    const wrapper = mount(<Input updatelocation ={onInputChange}/>);
-    expect(onInputChange.calledOnce).to.equal(false); 
+    const wrapper = mount(<Input handleChange ={onInputChange}/>);
+    expect(onInputChange.calledOnce).to.equal(false);
     wrapper.find('.user-input').simulate('change');
     expect(onInputChange.calledOnce).to.equal(true);
   });
+
+  it('weatherly should update location on input change', () => {
+
+  });
+
+  it.only('should have a passed in prop for placeholder', () => {
+    const wrapper = shallow(<Input placeholder='Please Enter City and State'/>);
+    // eval(locus)
+    expect(wrapper.props().placeholder).to.equal('Please Enter City and State');
+  });
+
+  it('submit button is disabled when there is no location', () => {
+    
+  })
 
   // it('weather should update weather state on button click', () => {
   //   const wrapper = mount(<Weatherly/>);
