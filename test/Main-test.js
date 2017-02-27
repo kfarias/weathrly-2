@@ -8,6 +8,7 @@ import WeatherCards from '../lib/Components/WeatherCards';
 import CurrentWeatherCard from '../lib/Components/CurrentWeatherCard';
 import Input from '../lib/Components/Input';
 import DailyCard from '../lib/Components/DailyCard';
+import Data from './Helpers/fake-api-file';
 import sinon from 'sinon';
 import locus from 'locus'
 
@@ -78,6 +79,8 @@ describe('testing with enzyme', () => {
     const wrapper = shallow(<Weatherly source='api'/>);
     expect(wrapper.props().source).to.equal('api');
   });
+
+
 
   // it('weather should update weather state on button click', () => {
   //   const wrapper = mount(<Weatherly/>);
