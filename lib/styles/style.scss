@@ -12,9 +12,10 @@ body{
 
 
 .page-title {
-  font-size: 60px;
+  font-size: 100px;
   text-align: center;
   margin-bottom: 20px;
+  margin-top: 40px;
 }
 
 .welcome-message {
@@ -25,14 +26,14 @@ body{
 
 .user-input, .submit-btn {
   display: block;
-  width: 60%;
-  height: 75px;
-  // padding: 20px;
+  width: 80%;
+  height: 80px;
   border: none;
   margin-bottom: 20px;
   margin-left: auto;
   margin-right: auto;
   background-color: #F0F8FF;
+  font-size: 50px;
 }
 
 .current-Weather {
@@ -52,13 +53,13 @@ body{
 
 .location-city{
   text-align: left;
-  margin-left: 39px;
+  margin-left: 75px;
   font-size: 30px;
 }
 
 .current-date{
   text-align: left;
-  margin-left: 39px;
+  margin-left: 75px;
 }
 
 .hour-sect {
