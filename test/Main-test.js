@@ -6,6 +6,7 @@ import Weatherly from '../lib/Components/Weatherly';
 import SubmitInput from '../lib/Components/SubmitInput';
 import WeatherCards from '../lib/Components/WeatherCards';
 import CurrentWeatherCard from '../lib/Components/CurrentWeatherCard';
+import HourlyCard from '../lib/Components/HourlyCard';
 import Input from '../lib/Components/Input';
 import DailyCard from '../lib/Components/DailyCard';
 import Data from './Helpers/fake-api-file';
@@ -79,6 +80,12 @@ describe('testing with enzyme', () => {
     const wrapper = shallow(<Weatherly source='api'/>);
     expect(wrapper.props().source).to.equal('api');
   });
+
+  it('should pull in weather data',() => {
+    const wrapper = shallow(<HourlyCard currentWeather={ Data.hourly_forecast }/>)
+
+    expect(wrapper.find('.hour-sect').length).to.equal(7);
+  })
 
 
 
