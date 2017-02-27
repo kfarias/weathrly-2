@@ -1,4 +1,4 @@
-const data = {
+const Data = {
   current_observation: {
      temp_f: 41
    },
