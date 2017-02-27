@@ -62,20 +62,51 @@ body{
   margin-left: 75px;
 }
 
+.hour-sect{
+  background: url(https://s-media-cache-ak0.pinimg.com/originals/77/b8/4b/77b84b5a224cda9a4eeb56091b0a4ee6.jpg);
+  overflow: auto;
+  white-space: nowrap;
+}
+
+
+.hour-sect div{
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
 .hour-sect {
   margin-top: 20px;
   margin-bottom: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  font-size: 23px;
+  font-size: 55px;
+}
+
+.hour-sect div:hover {
+  background: url(https://s-media-cache-ak0.pinimg.com/originals/77/b8/4b/77b84b5a224cda9a4eeb56091b0a4ee6.jpg);
+
+}
+
+.daily-date{
+  text-align: left;
+}
+
+.daily-high-low{
+  text-align: right;
+}
+
+img{
+  width: 100px;
+  height: 100px;
 }
 
 .day-card {
-  display: block;
   border: .5px solid white;
   text-align: center;
-  font-size: 12px;
+  font-size: 65px;
 }
 
 
