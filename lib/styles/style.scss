@@ -1,63 +1,52 @@
 @import 'variables';
 
-body{
-  width: 100vw;
-  height:100vh;
-  font-family: $bodyFont;
-  color: $textColor;
+body {
   background: url(https://s-media-cache-ak0.pinimg.com/originals/77/b8/4b/77b84b5a224cda9a4eeb56091b0a4ee6.jpg);
+  color: $textColor;
+  font-family: $bodyFont;
   opacity: 0.7;
+  text-align: center;
+  height:100vh;
+  width: 100vw;
 }
 
+img {
+  height: 50px;
+  width: 50px;
+}
 
 .page-title {
   font-size: 60px;
-  text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   margin-top: 60px;
 }
 
 .welcome-message {
   font-size: 20px;
-  text-align: center;
   margin-bottom: 60px;
 }
 
 .user-input, .submit-btn {
-  display: block;
-  width: 80%;
-  height: 40px;
-  border: none;
-  margin-bottom: 20px;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: #F0F8FF;
+  @include inputButtonStyle;
 }
 
-.user-input {
+.user-input, .current-summary {
  font-size: 20px;
 }
 
-.submit-btn {
+.submit-btn, .location-city {
   font-size: 30px;
 }
 
-.location-city{
-  text-align: center;
-  font-size: 30px;
-}
-
-.current-date{
-  text-align: center;
-  margin-bottom: 20px;
+.current-date {
   font-size: 15px;
 }
 
-.current-temp{
+.current-temp {
   font-size: 80px;
   margin: 30px;
-  text-align: center;
 }
+
 .current-img {
   visibility: hidden;
 }
@@ -65,41 +54,32 @@ body{
 .current-condition {
   font-size: 30px;
   margin-bottom: 20px;
-  text-align: center;
 }
 
-.high-low{
+.high-low {
   font-size: 50px;
   margin: 30px;
-  text-align: center;
 }
 
-.current-summary {
-  text-align: center;
-  font-size: 20px;
-}
-
-.hour-sect{
+.hour-sect {
   background: url(https://s-media-cache-ak0.pinimg.com/originals/77/b8/4b/77b84b5a224cda9a4eeb56091b0a4ee6.jpg);
   overflow: auto;
   white-space: nowrap;
 }
 
-
-.hour-sect div{
+.hour-sect div {
+  color: $textColor;
   display: inline-block;
-  color: white;
-  text-align: center;
-  padding: 10px;
-  text-decoration: none;
   margin-left: 15px;
   margin-right: 15px;
+  padding: 10px;
+  text-decoration: none;
 }
 
 .hour-sect {
+  font-size: 20px;
   margin-top: 10px;
   margin-bottom: 10px;
-  font-size: 20px;
 }
 
 .daily-date{
@@ -107,18 +87,12 @@ body{
   margin-left: 20px;
 }
 
-img{
-  width: 50px;
-  height: 50px;
-}
-
 .day-card {
+  border: .5px solid $textColor;
   display: flex;
-  justify-content: center;
   font-size: 20px;
-  border: .5px solid white;
+  justify-content: center;
   padding: 40px;
 }
-
 
 @import 'mediaQuery';
