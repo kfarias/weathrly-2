@@ -1,0 +1,39 @@
+@media screen and (min-width: 1040px) {
+.page-title {
+  font-size: 100px;
+}
+
+.user-input, .submit-btn {
+  width: 50%;
+}
+
+.location-city{
+  font-size: 30px;
+}
+
+.current-date {
+  font-size: 20px;
+
+}
+
+.current-img {
+  visibility: visible;
+  width: 100px;
+  height: 100px;
+  margin-left: 600px;
+}
+
+.current-condition {
+  font-size: 40px;
+}
+
+.hour-sect {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.day-card {
+  font-size: 40px;
+}
+}
