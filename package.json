@@ -1,5 +1,5 @@
 {
-  "name": "react-starter-kit",
+  "name": "Weatherly",
   "version": "1.0.0",
   "description": "A good enough starter kit for a React project, I guess.",
   "main": "index.js",
@@ -12,7 +12,7 @@
     "type": "git",
     "url": "https://github.com/turingschool-examples/react-starter-kit.git"
   },
-  "author": "Steve Kinney",
+  "author": "Kenia Farias, Staci McWilliams",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/turingschool-examples/react-starter-kit/issues"

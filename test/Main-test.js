@@ -11,7 +11,6 @@ import Input from '../lib/Components/Input';
 import Data from './Helpers/fake-api-file';
 import DailyCard from '../lib/Components/DailyCard';
 import sinon from 'sinon';
-import locus from 'locus';
 
 
 describe('testing with enzyme', () => {
