@@ -2,6 +2,18 @@
 //colors
 $backgroundColor: black;
 $textColor: white;
+$inputButtonColor: #F0F8FF;
 
 //font
 $bodyFont: 'Rambla', sans-serif;
+
+@mixin inputButtonStyle {
+  display: block;
+  width: 80%;
+  height: 40px;
+  border: none;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: $inputButtonColor;
+}
