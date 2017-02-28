@@ -8,11 +8,8 @@ import WeatherCards from '../lib/Components/WeatherCards';
 import CurrentWeatherCard from '../lib/Components/CurrentWeatherCard';
 import HourlyCard from '../lib/Components/HourlyCard';
 import Input from '../lib/Components/Input';
+import Data from './Helpers/fake-api-file';
 import DailyCard from '../lib/Components/DailyCard';
-import MockData from './Helpers/fake-api-file';
-// import ForecastData from './Helpers/fake-api-file';
-// import TenDay from './Helpers/fake-api-file';
-// import SevenHour from './Helpers/fake-api-file';
 import sinon from 'sinon';
 import locus from 'locus'
 
@@ -84,34 +81,39 @@ describe('testing with enzyme', () => {
     expect(wrapper.find('TenDay')).to.have.length(0);
   });
 
-  it.skip('Input should have a prop of location', () => {
-    const wrapper = shallow(<Input location=''/>);
-    expect(wrapper.props().location).to.equal('');
+  it('should render one section in the HourlyCard', () => {
+    const wrapper = shallow(<HourlyCard currentWeather={Data}/>);
+    expect(wrapper.find('.hour-sect')).to.have.length(1);
   });
 
-  it.only('should display no data if nothing is passed in', () => {
-    const wrapper = shallow(<HourlyCard/>);
-    expect(wrapper.find('div').text()).to.equal('');
+  it('HourlyCard should render seven hours in a div', () => {
+    const wrapper = shallow(<HourlyCard currentWeather={Data}/>);
+    expect(wrapper.find('div')).to.have.length(7);
+  });
+
+  it('CurrentWeatherCard should have six paragraphs rendered', () => {
+    const wrapper = shallow(<CurrentWeatherCard currentWeather={Data}/>);
+    expect(wrapper.find('p')).to.have.length(6);
+  });
+  //
+  it('CurrentWeatherCard location city should return Denver', () => {
+    const wrapper = shallow(<CurrentWeatherCard currentWeather={Data}/>);
+    expect(wrapper.find('.location-city').text()).to.equal('Denver');
+  });
+
+  it('DailyCard should render 10 cards to the dom', () => {
+    const wrapper = shallow(<DailyCard currentWeather={Data}/>);
+    expect(wrapper.find('div')).to.have.length(10);
+  });
+
+  it.skip('DailyCard first day should return Friday', () => {
+    const wrapper = shallow(<DailyCard currentWeather={Data}/>);
+    expect(wrapper.find('.daily-date').text()).to.equal('Friday')
   })
 
-
-
-  // it('weather should update weather state on button click', () => {
-  //   const wrapper = mount(<Weatherly/>);
-  //   expect(wrapper.state().weather).to.deep.equal([])
-  //   wrapper.find('location').simulate('change', {target: {value: 'denver, co'} } );
-  //   wrapper.find('.submit'),simulate('click',1);
-  //   expect(wrapper.state().weather).to.equal(['Denver,co']);
-  // })
-
-  // it.only('CurrentWeatherCard should render in a section', () => {
-  //   const wrapper = shallow(<CurrentWeatherCard/>);
-  //   assert.equal(wrapper.type(), 'section');
+  // it.only('Input should have a prop of location', () => {
+  //   const wrapper = shallow(<Input location=''/>);
+  //   expect(wrapper.props().location).text().to.equal('');
   // });
 
-
-  // it('should have passed in prop for text', () => {
-  //   const wrapper = mount(<input text ='text' />)
-  //   expect(wrapper.props().type).to.equal('text');
-  // })
 });
