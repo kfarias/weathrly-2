@@ -11,7 +11,7 @@ import Input from '../lib/Components/Input';
 import Data from './Helpers/fake-api-file';
 import DailyCard from '../lib/Components/DailyCard';
 import sinon from 'sinon';
-import locus from 'locus'
+import locus from 'locus';
 
 
 describe('testing with enzyme', () => {
@@ -106,14 +106,9 @@ describe('testing with enzyme', () => {
     expect(wrapper.find('div')).to.have.length(10);
   });
 
-  it.skip('DailyCard first day should return Friday', () => {
+  it('DailyCard should have a length of ten', () => {
     const wrapper = shallow(<DailyCard currentWeather={Data}/>);
-    expect(wrapper.find('.daily-date').text()).to.equal('Friday')
-  })
-
-  // it.only('Input should have a prop of location', () => {
-  //   const wrapper = shallow(<Input location=''/>);
-  //   expect(wrapper.props().location).text().to.equal('');
-  // });
+    expect(wrapper.find('.daily-date')).to.have.length(10);
+  });
 
 });
