@@ -9,7 +9,10 @@ import CurrentWeatherCard from '../lib/Components/CurrentWeatherCard';
 import HourlyCard from '../lib/Components/HourlyCard';
 import Input from '../lib/Components/Input';
 import DailyCard from '../lib/Components/DailyCard';
-import Data from './Helpers/fake-api-file';
+import MockData from './Helpers/fake-api-file';
+// import ForecastData from './Helpers/fake-api-file';
+// import TenDay from './Helpers/fake-api-file';
+// import SevenHour from './Helpers/fake-api-file';
 import sinon from 'sinon';
 import locus from 'locus'
 
@@ -76,15 +79,19 @@ describe('testing with enzyme', () => {
     expect(handleClick.calledOnce).to.equal(true);
   });
 
-  it.skip('Weatherly should have a prop of source', () => {
-    const wrapper = shallow(<Weatherly source='api'/>);
-    expect(wrapper.props().source).to.equal('api');
+  it('TenDay renders nothing initaly', () => {
+    const wrapper = shallow(<Main/>);
+    expect(wrapper.find('TenDay')).to.have.length(0);
   });
 
-  it('should pull in weather data',() => {
-    const wrapper = shallow(<HourlyCard currentWeather={ Data.hourly_forecast }/>)
+  it.skip('Input should have a prop of location', () => {
+    const wrapper = shallow(<Input location=''/>);
+    expect(wrapper.props().location).to.equal('');
+  });
 
-    expect(wrapper.find('.hour-sect').length).to.equal(7);
+  it.only('should display no data if nothing is passed in', () => {
+    const wrapper = shallow(<HourlyCard/>);
+    expect(wrapper.find('div').text()).to.equal('');
   })
 
 
