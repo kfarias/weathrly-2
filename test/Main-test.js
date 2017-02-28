@@ -1,6 +1,6 @@
 import React from 'react';
 import { expect, assert } from 'chai';
-import { shallow, mount, render } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import Main from '../lib/Components/Main.js';
 import Weatherly from '../lib/Components/Weatherly';
 import SubmitInput from '../lib/Components/SubmitInput';
@@ -11,7 +11,6 @@ import Input from '../lib/Components/Input';
 import Data from './Helpers/fake-api-file';
 import DailyCard from '../lib/Components/DailyCard';
 import sinon from 'sinon';
-import locus from 'locus';
 
 
 describe('testing with enzyme', () => {
@@ -42,7 +41,6 @@ describe('testing with enzyme', () => {
     assert.equal(wrapper.type(), 'section');
   });
 
-
   it('should render a div in the main component', () => {
     const wrapper = shallow(<Main/>);
     assert.equal(wrapper.type(), 'div');
@@ -50,9 +48,8 @@ describe('testing with enzyme', () => {
 
   it('Main should have a component Weatherly', () => {
     const wrapper = shallow(<Main/>);
-    expect(wrapper.find(Weatherly)).to.have.length(1)
+    expect(wrapper.find(Weatherly)).to.have.length(1);
   });
-
 
   it('weather should update state of input on change ', () => {
     const onInputChange = sinon.spy();
@@ -63,7 +60,7 @@ describe('testing with enzyme', () => {
   });
 
   it('submit button is disabled when there is no location', () => {
-    const wrapper = shallow(<SubmitInput disabled={true}/>)
+    const wrapper = shallow(<SubmitInput disabled={true}/>);
     const inst = wrapper.instance();
     expect(inst.props.disabled).to.equal(true);
   });
@@ -95,7 +92,7 @@ describe('testing with enzyme', () => {
     const wrapper = shallow(<CurrentWeatherCard currentWeather={Data}/>);
     expect(wrapper.find('p')).to.have.length(6);
   });
-  //
+
   it('CurrentWeatherCard location city should return Denver', () => {
     const wrapper = shallow(<CurrentWeatherCard currentWeather={Data}/>);
     expect(wrapper.find('.location-city').text()).to.equal('Denver');
@@ -110,5 +107,4 @@ describe('testing with enzyme', () => {
     const wrapper = shallow(<DailyCard currentWeather={Data}/>);
     expect(wrapper.find('.daily-date')).to.have.length(10);
   });
-
 });
