@@ -8248,8 +8248,8 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	__webpack_require__(480);
 	__webpack_require__(484);
+	__webpack_require__(488);
 
 	_reactDom2.default.render(_react2.default.createElement(_Main2.default, null), document.getElementById('application'));
 
@@ -29544,7 +29544,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_Weatherly2.default, { source: 'http://api.wunderground.com/api/200e09fe3edf7c68/history/forecast/geolookup/hourly/conditions/forecast10day/q/' })
+	        _react2.default.createElement(_Weatherly2.default, { source: 'https://api.wunderground.com/api/200e09fe3edf7c68/history/forecast/geolookup/hourly/conditions/forecast10day/q/' })
 	      );
 	    }
 	  }]);
@@ -29574,7 +29574,15 @@
 
 	var _WeatherCards2 = _interopRequireDefault(_WeatherCards);
 
-	var _jquery = __webpack_require__(479);
+	var _Input = __webpack_require__(481);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
+	var _SubmitInput = __webpack_require__(482);
+
+	var _SubmitInput2 = _interopRequireDefault(_SubmitInput);
+
+	var _jquery = __webpack_require__(483);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -29614,6 +29622,11 @@
 	      }
 	    }
 	  }, {
+	    key: 'setsLocation',
+	    value: function setsLocation(e) {
+	      this.setState({ location: e.target.value });
+	    }
+	  }, {
 	    key: 'submitLocation',
 	    value: function submitLocation(e) {
 	      e.preventDefault();
@@ -29623,8 +29636,6 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this3 = this;
-
 	      return _react2.default.createElement(
 	        'section',
 	        null,
@@ -29641,17 +29652,10 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'input-field' },
-	          _react2.default.createElement('input', { type: 'text',
-	            className: 'user-input',
-	            placeholder: 'Please Enter City and State',
-	            value: this.state.location,
-	            onChange: function onChange(e) {
-	              return _this3.setState({ location: e.target.value });
-	            } }),
-	          _react2.default.createElement('input', { type: 'submit',
-	            className: 'submit-btn',
-	            disabled: !this.state.location,
-	            onClick: this.submitLocation.bind(this) })
+	          _react2.default.createElement(_Input2.default, { location: this.state.location,
+	            handleChange: this.setsLocation.bind(this) }),
+	          _react2.default.createElement(_SubmitInput2.default, { handleClick: this.submitLocation.bind(this),
+	            disableInput: !this.state.location })
 	        ),
 	        _react2.default.createElement(_WeatherCards2.default, { weather: this.state.weather })
 	      );
@@ -29677,9 +29681,17 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Card = __webpack_require__(478);
+	var _CurrentWeatherCard = __webpack_require__(478);
 
-	var _Card2 = _interopRequireDefault(_Card);
+	var _CurrentWeatherCard2 = _interopRequireDefault(_CurrentWeatherCard);
+
+	var _HourlyCard = __webpack_require__(479);
+
+	var _HourlyCard2 = _interopRequireDefault(_HourlyCard);
+
+	var _DailyCard = __webpack_require__(480);
+
+	var _DailyCard2 = _interopRequireDefault(_DailyCard);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29688,15 +29700,17 @@
 
 	  if (!Object.keys(weather).length) {
 	    return _react2.default.createElement('div', null);
-	  } else {
-
-	    return _react2.default.createElement(
-	      'div',
-	      null,
-	      _react2.default.createElement(_Card2.default, { currentWeather: weather })
-	    );
 	  }
+
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(_CurrentWeatherCard2.default, { currentWeather: weather }),
+	    _react2.default.createElement(_HourlyCard2.default, { currentWeather: weather }),
+	    _react2.default.createElement(_DailyCard2.default, { currentWeather: weather })
+	  );
 	};
+
 	exports.default = WeatherCards;
 
 /***/ },
@@ -29715,7 +29729,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var Card = function Card(_ref) {
+	var CurrentWeatherCard = function CurrentWeatherCard(_ref) {
 	  var currentWeather = _ref.currentWeather;
 
 	  return _react2.default.createElement(
@@ -29726,524 +29740,495 @@
 	      { className: 'current-Weather' },
 	      _react2.default.createElement(
 	        'p',
-	        null,
-	        'Location: ',
+	        { className: 'location-city' },
 	        currentWeather.location.city
 	      ),
 	      _react2.default.createElement(
 	        'p',
-	        null,
-	        'Current Date: ',
+	        { className: 'current-date' },
 	        currentWeather.history.date.pretty
 	      ),
 	      _react2.default.createElement(
 	        'p',
-	        null,
-	        'Current Temperature: ',
+	        { className: 'current-temp' },
 	        currentWeather.current_observation.temp_f,
 	        ' \xB0F'
 	      ),
 	      _react2.default.createElement(
 	        'p',
-	        null,
-	        'Current Condition: ',
+	        { className: 'current-condition' },
 	        currentWeather.current_observation.weather
 	      ),
 	      _react2.default.createElement(
 	        'p',
-	        null,
-	        'High: ',
-	        currentWeather.forecast.simpleforecast.forecastday[0].high.fahrenheit
-	      ),
-	      _react2.default.createElement(
-	        'p',
-	        null,
-	        'Low: ',
+	        { className: 'high-low' },
+	        currentWeather.forecast.simpleforecast.forecastday[0].high.fahrenheit,
+	        '/',
 	        currentWeather.forecast.simpleforecast.forecastday[0].low.fahrenheit
 	      ),
 	      _react2.default.createElement(
 	        'p',
-	        null,
-	        'Summary: ',
+	        { className: 'current-summary' },
 	        currentWeather.forecast.txt_forecast.forecastday[0].fcttext
-	      )
-	    ),
-	    _react2.default.createElement(
-	      'section',
-	      { className: 'hour-sect' },
-	      _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          ' First Hour img:',
-	          _react2.default.createElement('img', { src: currentWeather.hourly_forecast[0].icon_url })
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          ' First hour temp: ',
-	          currentWeather.hourly_forecast[0].temp.english,
-	          ' \xB0F'
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          'First hour time: ',
-	          currentWeather.hourly_forecast[0].FCTTIME.civil
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          ' Second Hour img:',
-	          _react2.default.createElement('img', { src: currentWeather.hourly_forecast[1].icon_url })
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          ' Second hour temp: ',
-	          currentWeather.hourly_forecast[1].temp.english,
-	          ' \xB0F'
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          'Second hour time: ',
-	          currentWeather.hourly_forecast[1].FCTTIME.civil
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          ' Third Hour img:',
-	          _react2.default.createElement('img', { src: currentWeather.hourly_forecast[2].icon_url })
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          ' Third hour temp: ',
-	          currentWeather.hourly_forecast[2].temp.english,
-	          ' \xB0F'
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          'Third hour time: ',
-	          currentWeather.hourly_forecast[2].FCTTIME.civil
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          ' Fourth Hour img:',
-	          _react2.default.createElement('img', { src: currentWeather.hourly_forecast[3].icon_url })
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          ' Fourth hour temp: ',
-	          currentWeather.hourly_forecast[3].temp.english,
-	          ' \xB0F'
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          'Fourth hour time: ',
-	          currentWeather.hourly_forecast[3].FCTTIME.civil
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          ' Fifth Hour img:',
-	          _react2.default.createElement('img', { src: currentWeather.hourly_forecast[4].icon_url })
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          ' Fifth hour temp: ',
-	          currentWeather.hourly_forecast[4].temp.english,
-	          ' \xB0F'
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          'Fifth hour time: ',
-	          currentWeather.hourly_forecast[4].FCTTIME.civil
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          ' Sixth Hour img:',
-	          _react2.default.createElement('img', { src: currentWeather.hourly_forecast[5].icon_url })
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          ' Sixth hour temp: ',
-	          currentWeather.hourly_forecast[5].temp.english,
-	          ' \xB0F'
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          'Sixth hour time: ',
-	          currentWeather.hourly_forecast[5].FCTTIME.civil
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          ' Seventh Hour img:',
-	          _react2.default.createElement('img', { src: currentWeather.hourly_forecast[6].icon_url })
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          ' Seventh hour temp: ',
-	          currentWeather.hourly_forecast[6].temp.english,
-	          ' \xB0F'
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          'Seventh hour time: ',
-	          currentWeather.hourly_forecast[6].FCTTIME.civil
-	        )
-	      )
-	    ),
-	    _react2.default.createElement(
-	      'section',
-	      { className: 'day-sect' },
-	      _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '1st day img: ',
-	          _react2.default.createElement('img', { src: currentWeather.forecast.simpleforecast.forecastday[0].icon_url })
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '1st day: ',
-	          currentWeather.forecast.simpleforecast.forecastday[0].date.weekday
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '1st day high: ',
-	          currentWeather.forecast.simpleforecast.forecastday[0].high.fahrenheit,
-	          ' \xB0F'
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '1st day low: ',
-	          currentWeather.forecast.simpleforecast.forecastday[0].low.fahrenheit,
-	          ' \xB0F'
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '2nd day img: ',
-	          _react2.default.createElement('img', { src: currentWeather.forecast.simpleforecast.forecastday[1].icon_url })
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '2nd day: ',
-	          currentWeather.forecast.simpleforecast.forecastday[1].date.weekday
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '2nd day high: ',
-	          currentWeather.forecast.simpleforecast.forecastday[1].high.fahrenheit,
-	          ' \xB0F'
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '2nd day low: ',
-	          currentWeather.forecast.simpleforecast.forecastday[1].low.fahrenheit,
-	          ' \xB0F'
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '3rd day img: ',
-	          _react2.default.createElement('img', { src: currentWeather.forecast.simpleforecast.forecastday[2].icon_url })
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '3rd day: ',
-	          currentWeather.forecast.simpleforecast.forecastday[2].date.weekday
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '3rd day high: ',
-	          currentWeather.forecast.simpleforecast.forecastday[2].high.fahrenheit,
-	          ' \xB0F'
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '3rd day low: ',
-	          currentWeather.forecast.simpleforecast.forecastday[2].low.fahrenheit,
-	          ' \xB0F'
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '4th day img: ',
-	          _react2.default.createElement('img', { src: currentWeather.forecast.simpleforecast.forecastday[3].icon_url })
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '4th day: ',
-	          currentWeather.forecast.simpleforecast.forecastday[3].date.weekday
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '4th day high: ',
-	          currentWeather.forecast.simpleforecast.forecastday[3].high.fahrenheit,
-	          ' \xB0F'
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '4th day low: ',
-	          currentWeather.forecast.simpleforecast.forecastday[3].low.fahrenheit,
-	          ' \xB0F'
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '5th day img: ',
-	          _react2.default.createElement('img', { src: currentWeather.forecast.simpleforecast.forecastday[4].icon_url })
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '5th day: ',
-	          currentWeather.forecast.simpleforecast.forecastday[4].date.weekday
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '5th day high: ',
-	          currentWeather.forecast.simpleforecast.forecastday[4].high.fahrenheit,
-	          ' \xB0F'
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '5th day low: ',
-	          currentWeather.forecast.simpleforecast.forecastday[4].low.fahrenheit,
-	          ' \xB0F'
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '6th day img: ',
-	          _react2.default.createElement('img', { src: currentWeather.forecast.simpleforecast.forecastday[5].icon_url })
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '6th day: ',
-	          currentWeather.forecast.simpleforecast.forecastday[5].date.weekday
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '6th day high: ',
-	          currentWeather.forecast.simpleforecast.forecastday[5].high.fahrenheit,
-	          ' \xB0F'
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '6th day low: ',
-	          currentWeather.forecast.simpleforecast.forecastday[5].low.fahrenheit,
-	          ' \xB0F'
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '7th day img: ',
-	          _react2.default.createElement('img', { src: currentWeather.forecast.simpleforecast.forecastday[6].icon_url })
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '7th day: ',
-	          currentWeather.forecast.simpleforecast.forecastday[6].date.weekday
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '7th day high: ',
-	          currentWeather.forecast.simpleforecast.forecastday[6].high.fahrenheit,
-	          ' \xB0F'
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '7th day low: ',
-	          currentWeather.forecast.simpleforecast.forecastday[6].low.fahrenheit,
-	          ' \xB0F'
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '8th day img: ',
-	          _react2.default.createElement('img', { src: currentWeather.forecast.simpleforecast.forecastday[7].icon_url })
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '8th day: ',
-	          currentWeather.forecast.simpleforecast.forecastday[7].date.weekday
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '8th day high: ',
-	          currentWeather.forecast.simpleforecast.forecastday[7].high.fahrenheit,
-	          ' \xB0F'
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '8th day low: ',
-	          currentWeather.forecast.simpleforecast.forecastday[7].low.fahrenheit,
-	          ' \xB0F'
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '9th day img: ',
-	          _react2.default.createElement('img', { src: currentWeather.forecast.simpleforecast.forecastday[8].icon_url })
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '9th day: ',
-	          currentWeather.forecast.simpleforecast.forecastday[8].date.weekday
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '9th day high: ',
-	          currentWeather.forecast.simpleforecast.forecastday[8].high.fahrenheit,
-	          ' \xB0F'
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '9th day low: ',
-	          currentWeather.forecast.simpleforecast.forecastday[8].low.fahrenheit,
-	          ' \xB0F'
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '10th day img: ',
-	          _react2.default.createElement('img', { src: currentWeather.forecast.simpleforecast.forecastday[9].icon_url })
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '10th day: ',
-	          currentWeather.forecast.simpleforecast.forecastday[9].date.weekday
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '10th day high: ',
-	          currentWeather.forecast.simpleforecast.forecastday[9].high.fahrenheit,
-	          ' \xB0F'
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          '10th day low: ',
-	          currentWeather.forecast.simpleforecast.forecastday[9].low.fahrenheit,
-	          ' \xB0F'
-	        )
 	      )
 	    )
 	  );
 	};
 
-	exports.default = Card;
+	exports.default = CurrentWeatherCard;
 
 /***/ },
 /* 479 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(299);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var HourlyCard = function HourlyCard(_ref) {
+	  var currentWeather = _ref.currentWeather;
+
+	  return _react2.default.createElement(
+	    'section',
+	    { className: 'hour-sect' },
+	    _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement('img', { alt: 'forecast-icon', src: currentWeather.hourly_forecast[0].icon_url }),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        currentWeather.hourly_forecast[0].temp.english,
+	        ' \xB0F'
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        currentWeather.hourly_forecast[0].FCTTIME.civil
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement('img', { alt: 'forecast-icon', src: currentWeather.hourly_forecast[1].icon_url }),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        currentWeather.hourly_forecast[1].temp.english,
+	        ' \xB0F'
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        currentWeather.hourly_forecast[1].FCTTIME.civil
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement('img', { alt: 'forecast-icon', src: currentWeather.hourly_forecast[2].icon_url }),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        currentWeather.hourly_forecast[2].temp.english,
+	        ' \xB0F'
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        currentWeather.hourly_forecast[2].FCTTIME.civil
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement('img', { alt: 'forecast-icon', src: currentWeather.hourly_forecast[3].icon_url }),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        currentWeather.hourly_forecast[3].temp.english,
+	        ' \xB0F'
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        currentWeather.hourly_forecast[3].FCTTIME.civil
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement('img', { alt: 'forecast-icon', src: currentWeather.hourly_forecast[4].icon_url }),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        currentWeather.hourly_forecast[4].temp.english,
+	        ' \xB0F'
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        currentWeather.hourly_forecast[4].FCTTIME.civil
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement('img', { alt: 'forecast-icon', src: currentWeather.hourly_forecast[5].icon_url }),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        currentWeather.hourly_forecast[5].temp.english,
+	        ' \xB0F'
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        currentWeather.hourly_forecast[5].FCTTIME.civil
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement('img', { alt: 'forecast-icon', src: currentWeather.hourly_forecast[6].icon_url }),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        currentWeather.hourly_forecast[6].temp.english,
+	        ' \xB0F'
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        currentWeather.hourly_forecast[6].FCTTIME.civil
+	      )
+	    )
+	  );
+	};
+
+	exports.default = HourlyCard;
+
+/***/ },
+/* 480 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(299);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var DailyCard = function DailyCard(_ref) {
+	  var currentWeather = _ref.currentWeather;
+
+	  return _react2.default.createElement(
+	    'section',
+	    { className: 'day-sect' },
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'day-card' },
+	      _react2.default.createElement('img', { alt: 'forecast-icon', className: 'day-image', src: currentWeather.forecast.simpleforecast.forecastday[0].icon_url }),
+	      _react2.default.createElement(
+	        'p',
+	        { className: 'daily-date' },
+	        currentWeather.forecast.simpleforecast.forecastday[0].date.weekday
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        { className: 'daily-high-low' },
+	        currentWeather.forecast.simpleforecast.forecastday[0].high.fahrenheit,
+	        '/',
+	        currentWeather.forecast.simpleforecast.forecastday[0].low.fahrenheit
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'day-card' },
+	      _react2.default.createElement('img', { alt: 'forecast-icon', src: currentWeather.forecast.simpleforecast.forecastday[1].icon_url }),
+	      _react2.default.createElement(
+	        'p',
+	        { className: 'daily-date' },
+	        currentWeather.forecast.simpleforecast.forecastday[1].date.weekday
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        currentWeather.forecast.simpleforecast.forecastday[1].high.fahrenheit,
+	        '/',
+	        currentWeather.forecast.simpleforecast.forecastday[1].low.fahrenheit
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'day-card' },
+	      _react2.default.createElement('img', { alt: 'forecast-icon', src: currentWeather.forecast.simpleforecast.forecastday[2].icon_url }),
+	      _react2.default.createElement(
+	        'p',
+	        { className: 'daily-date' },
+	        currentWeather.forecast.simpleforecast.forecastday[2].date.weekday
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        currentWeather.forecast.simpleforecast.forecastday[2].high.fahrenheit,
+	        '/',
+	        currentWeather.forecast.simpleforecast.forecastday[2].low.fahrenheit
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'day-card' },
+	      _react2.default.createElement('img', { alt: 'forecast-icon', src: currentWeather.forecast.simpleforecast.forecastday[3].icon_url }),
+	      _react2.default.createElement(
+	        'p',
+	        { className: 'daily-date' },
+	        currentWeather.forecast.simpleforecast.forecastday[3].date.weekday
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        currentWeather.forecast.simpleforecast.forecastday[3].high.fahrenheit,
+	        '/',
+	        currentWeather.forecast.simpleforecast.forecastday[3].low.fahrenheit
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'day-card' },
+	      _react2.default.createElement('img', { alt: 'forecast-icon', src: currentWeather.forecast.simpleforecast.forecastday[4].icon_url }),
+	      _react2.default.createElement(
+	        'p',
+	        { className: 'daily-date' },
+	        currentWeather.forecast.simpleforecast.forecastday[4].date.weekday
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        currentWeather.forecast.simpleforecast.forecastday[4].high.fahrenheit,
+	        '/',
+	        currentWeather.forecast.simpleforecast.forecastday[4].low.fahrenheit
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'day-card' },
+	      _react2.default.createElement('img', { alt: 'forecast-icon', src: currentWeather.forecast.simpleforecast.forecastday[5].icon_url }),
+	      _react2.default.createElement(
+	        'p',
+	        { className: 'daily-date' },
+	        currentWeather.forecast.simpleforecast.forecastday[5].date.weekday
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        currentWeather.forecast.simpleforecast.forecastday[5].high.fahrenheit,
+	        '/',
+	        currentWeather.forecast.simpleforecast.forecastday[5].low.fahrenheit
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'day-card' },
+	      _react2.default.createElement('img', { alt: 'forecast-icon', src: currentWeather.forecast.simpleforecast.forecastday[6].icon_url }),
+	      _react2.default.createElement(
+	        'p',
+	        { className: 'daily-date' },
+	        currentWeather.forecast.simpleforecast.forecastday[6].date.weekday
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        currentWeather.forecast.simpleforecast.forecastday[6].high.fahrenheit,
+	        '/',
+	        currentWeather.forecast.simpleforecast.forecastday[6].low.fahrenheit
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'day-card' },
+	      _react2.default.createElement('img', { alt: 'forecast-icon', src: currentWeather.forecast.simpleforecast.forecastday[7].icon_url }),
+	      _react2.default.createElement(
+	        'p',
+	        { className: 'daily-date' },
+	        currentWeather.forecast.simpleforecast.forecastday[7].date.weekday
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        currentWeather.forecast.simpleforecast.forecastday[7].high.fahrenheit,
+	        '/',
+	        currentWeather.forecast.simpleforecast.forecastday[7].low.fahrenheit
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'day-card' },
+	      _react2.default.createElement('img', { alt: 'forecast-icon', src: currentWeather.forecast.simpleforecast.forecastday[8].icon_url }),
+	      _react2.default.createElement(
+	        'p',
+	        { className: 'daily-date' },
+	        currentWeather.forecast.simpleforecast.forecastday[8].date.weekday
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        currentWeather.forecast.simpleforecast.forecastday[8].high.fahrenheit,
+	        '/',
+	        currentWeather.forecast.simpleforecast.forecastday[8].low.fahrenheit
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'day-card' },
+	      _react2.default.createElement('img', { alt: 'forecast-icon', src: currentWeather.forecast.simpleforecast.forecastday[9].icon_url }),
+	      _react2.default.createElement(
+	        'p',
+	        { className: 'daily-date' },
+	        currentWeather.forecast.simpleforecast.forecastday[9].date.weekday
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        currentWeather.forecast.simpleforecast.forecastday[9].high.fahrenheit,
+	        '/',
+	        currentWeather.forecast.simpleforecast.forecastday[9].low.fahrenheit
+	      )
+	    )
+	  );
+	};
+
+	exports.default = DailyCard;
+
+/***/ },
+/* 481 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(299);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Input = function (_Component) {
+	  _inherits(Input, _Component);
+
+	  function Input() {
+	    _classCallCheck(this, Input);
+
+	    return _possibleConstructorReturn(this, (Input.__proto__ || Object.getPrototypeOf(Input)).apply(this, arguments));
+	  }
+
+	  _createClass(Input, [{
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement('input', { type: 'text',
+	          className: 'user-input',
+	          'aria-label': 'location',
+	          placeholder: 'City, State',
+	          value: this.props.location,
+	          onChange: function onChange(e) {
+	            return _this2.props.handleChange(e);
+	          } })
+	      );
+	    }
+	  }]);
+
+	  return Input;
+	}(_react.Component);
+
+	exports.default = Input;
+
+/***/ },
+/* 482 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(299);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var SubmitInput = function (_Component) {
+	  _inherits(SubmitInput, _Component);
+
+	  function SubmitInput() {
+	    _classCallCheck(this, SubmitInput);
+
+	    return _possibleConstructorReturn(this, (SubmitInput.__proto__ || Object.getPrototypeOf(SubmitInput)).apply(this, arguments));
+	  }
+
+	  _createClass(SubmitInput, [{
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement('input', { type: 'submit',
+	          className: 'submit-btn',
+	          disabled: this.props.disableInput,
+	          onClick: function onClick(e) {
+	            return _this2.props.handleClick(e);
+	          } })
+	      );
+	    }
+	  }]);
+
+	  return SubmitInput;
+	}(_react.Component);
+
+	exports.default = SubmitInput;
+
+/***/ },
+/* 483 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -40469,16 +40454,16 @@
 
 
 /***/ },
-/* 480 */
+/* 484 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(481);
+	var content = __webpack_require__(485);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(483)(content, {});
+	var update = __webpack_require__(487)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -40495,10 +40480,10 @@
 	}
 
 /***/ },
-/* 481 */
+/* 485 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(482)();
+	exports = module.exports = __webpack_require__(486)();
 	// imports
 
 
@@ -40509,7 +40494,7 @@
 
 
 /***/ },
-/* 482 */
+/* 486 */
 /***/ function(module, exports) {
 
 	/*
@@ -40565,7 +40550,7 @@
 
 
 /***/ },
-/* 483 */
+/* 487 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -40817,16 +40802,16 @@
 
 
 /***/ },
-/* 484 */
+/* 488 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(485);
+	var content = __webpack_require__(489);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(483)(content, {});
+	var update = __webpack_require__(487)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -40843,15 +40828,15 @@
 	}
 
 /***/ },
-/* 485 */
+/* 489 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(482)();
+	exports = module.exports = __webpack_require__(486)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "body {\n  background: url(\"/images/cardBackground.svg\");\n  font-family: \"Rambla\", sans-serif;\n  color: white; }\n\n.page-title {\n  font-size: 50px;\n  text-align: center;\n  margin-bottom: 20px; }\n\n.welcome-message {\n  text-align: center;\n  margin-bottom: 40px; }\n\n.user-input, .submit-btn {\n  display: block;\n  width: 100%;\n  height: 30px;\n  border: none;\n  margin-bottom: 20px; }\n\n.current-Weather {\n  background: url(http://wallpaperscraft.com/image/circle_blur_glare_9814_2560x1600.jpg);\n  text-align: center;\n  padding: 20px; }\n\n.hour-sect {\n  margin-top: 20px;\n  margin-bottom: 20px;\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-between; }\n\n.day-sect {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-between; }\n", ""]);
+	exports.push([module.id, "body {\n  background: url(https://s-media-cache-ak0.pinimg.com/originals/77/b8/4b/77b84b5a224cda9a4eeb56091b0a4ee6.jpg);\n  color: #FFFFFF;\n  font-family: \"Rambla\", sans-serif;\n  opacity: 0.7;\n  text-align: center;\n  height: 100vh;\n  width: 100vw; }\n\nimg {\n  height: 100px;\n  width: 100px; }\n\n.page-title {\n  font-size: 150px;\n  margin-bottom: 30px;\n  margin-top: 100px; }\n\n.welcome-message {\n  font-size: 40px;\n  margin-bottom: 60px; }\n\n.user-input, .submit-btn {\n  display: block;\n  width: 80%;\n  height: 90px;\n  border: none;\n  margin-bottom: 20px;\n  margin-left: auto;\n  margin-right: auto;\n  background-color: #F0F8FF; }\n\n.user-input {\n  font-size: 40px; }\n\n.current-summary {\n  font-size: 15px;\n  margin-bottom: 30px; }\n\n.submit-btn {\n  font-size: 30px; }\n\n.location-city {\n  font-size: 63px;\n  text-align: left;\n  margin-left: 80px; }\n\n.current-date {\n  font-size: 15px;\n  text-align: left;\n  margin-left: 80px;\n  margin-bottom: 30px; }\n\n.current-temp {\n  font-size: 114px; }\n\n.current-condition {\n  font-size: 30px;\n  margin-bottom: 20px; }\n\n.high-low {\n  font-size: 50px;\n  margin: 30px; }\n\n.hour-sect {\n  background: url(https://s-media-cache-ak0.pinimg.com/originals/77/b8/4b/77b84b5a224cda9a4eeb56091b0a4ee6.jpg);\n  overflow: auto;\n  white-space: nowrap; }\n\n.hour-sect div {\n  color: #FFFFFF;\n  display: inline-block;\n  margin-left: 50px;\n  margin-right: 50px;\n  padding: 20px;\n  text-decoration: none; }\n\n.hour-sect {\n  font-size: 50px;\n  margin-top: 15px;\n  margin-bottom: 15px; }\n\n.daily-date {\n  margin-right: 20px;\n  margin-left: 20px; }\n\n.day-card {\n  border: 0.5px solid #FFFFFF;\n  display: flex;\n  font-size: 65px;\n  justify-content: center;\n  padding: 40px; }\n", ""]);
 
 	// exports
 
