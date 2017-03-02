@@ -29618,6 +29618,8 @@
 	      if (location) {
 	        _jquery2.default.get(this.props.source + location + '.json').then(function (data) {
 	          _this2.setState({ weather: data });
+	        }).catch(function (e) {
+	          alert('Please enter a valid location');
 	        });
 	      }
 	    }
@@ -29646,7 +29648,7 @@
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          { className: 'welcome-message' },
+	          { 'aria-label': 'welcome-message', className: 'welcome-message' },
 	          'Welcome! Please Enter your City and State.'
 	        ),
 	        _react2.default.createElement(
@@ -29796,123 +29798,77 @@
 	var HourlyCard = function HourlyCard(_ref) {
 	  var currentWeather = _ref.currentWeather;
 
+	  var hours = [];
+	  currentWeather.hourly_forecast.slice(0, 6).forEach(function (hour, i) {
+	    hours.push(_react2.default.createElement(
+	      'div',
+	      { key: i },
+	      _react2.default.createElement('img', { alt: 'forecast-icon', src: hour.icon_url }),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        hour.temp.english,
+	        ' \xB0F'
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        hour.FCTTIME.civil
+	      )
+	    ));
+	  });
+
 	  return _react2.default.createElement(
 	    'section',
 	    { className: 'hour-sect' },
-	    _react2.default.createElement(
-	      'div',
-	      null,
-	      _react2.default.createElement('img', { alt: 'forecast-icon', src: currentWeather.hourly_forecast[0].icon_url }),
-	      _react2.default.createElement(
-	        'p',
-	        null,
-	        currentWeather.hourly_forecast[0].temp.english,
-	        ' \xB0F'
-	      ),
-	      _react2.default.createElement(
-	        'p',
-	        null,
-	        currentWeather.hourly_forecast[0].FCTTIME.civil
-	      )
-	    ),
-	    _react2.default.createElement(
-	      'div',
-	      null,
-	      _react2.default.createElement('img', { alt: 'forecast-icon', src: currentWeather.hourly_forecast[1].icon_url }),
-	      _react2.default.createElement(
-	        'p',
-	        null,
-	        currentWeather.hourly_forecast[1].temp.english,
-	        ' \xB0F'
-	      ),
-	      _react2.default.createElement(
-	        'p',
-	        null,
-	        currentWeather.hourly_forecast[1].FCTTIME.civil
-	      )
-	    ),
-	    _react2.default.createElement(
-	      'div',
-	      null,
-	      _react2.default.createElement('img', { alt: 'forecast-icon', src: currentWeather.hourly_forecast[2].icon_url }),
-	      _react2.default.createElement(
-	        'p',
-	        null,
-	        currentWeather.hourly_forecast[2].temp.english,
-	        ' \xB0F'
-	      ),
-	      _react2.default.createElement(
-	        'p',
-	        null,
-	        currentWeather.hourly_forecast[2].FCTTIME.civil
-	      )
-	    ),
-	    _react2.default.createElement(
-	      'div',
-	      null,
-	      _react2.default.createElement('img', { alt: 'forecast-icon', src: currentWeather.hourly_forecast[3].icon_url }),
-	      _react2.default.createElement(
-	        'p',
-	        null,
-	        currentWeather.hourly_forecast[3].temp.english,
-	        ' \xB0F'
-	      ),
-	      _react2.default.createElement(
-	        'p',
-	        null,
-	        currentWeather.hourly_forecast[3].FCTTIME.civil
-	      )
-	    ),
-	    _react2.default.createElement(
-	      'div',
-	      null,
-	      _react2.default.createElement('img', { alt: 'forecast-icon', src: currentWeather.hourly_forecast[4].icon_url }),
-	      _react2.default.createElement(
-	        'p',
-	        null,
-	        currentWeather.hourly_forecast[4].temp.english,
-	        ' \xB0F'
-	      ),
-	      _react2.default.createElement(
-	        'p',
-	        null,
-	        currentWeather.hourly_forecast[4].FCTTIME.civil
-	      )
-	    ),
-	    _react2.default.createElement(
-	      'div',
-	      null,
-	      _react2.default.createElement('img', { alt: 'forecast-icon', src: currentWeather.hourly_forecast[5].icon_url }),
-	      _react2.default.createElement(
-	        'p',
-	        null,
-	        currentWeather.hourly_forecast[5].temp.english,
-	        ' \xB0F'
-	      ),
-	      _react2.default.createElement(
-	        'p',
-	        null,
-	        currentWeather.hourly_forecast[5].FCTTIME.civil
-	      )
-	    ),
-	    _react2.default.createElement(
-	      'div',
-	      null,
-	      _react2.default.createElement('img', { alt: 'forecast-icon', src: currentWeather.hourly_forecast[6].icon_url }),
-	      _react2.default.createElement(
-	        'p',
-	        null,
-	        currentWeather.hourly_forecast[6].temp.english,
-	        ' \xB0F'
-	      ),
-	      _react2.default.createElement(
-	        'p',
-	        null,
-	        currentWeather.hourly_forecast[6].FCTTIME.civil
-	      )
-	    )
+	    hours
 	  );
 	};
+	//
+	//   <section className='hour-sect'>
+	//     <div>
+	//       <img alt="forecast-icon" src={currentWeather.hourly_forecast[0].icon_url}/>
+	//       <p>{currentWeather.hourly_forecast[0].temp.english} °F</p>
+	//       <p>{currentWeather.hourly_forecast[0].FCTTIME.civil}</p>
+	//     </div>
+	//
+	//     <div>
+	//       <img alt="forecast-icon" src={currentWeather.hourly_forecast[1].icon_url}/>
+	//       <p>{currentWeather.hourly_forecast[1].temp.english} °F</p>
+	//       <p>{currentWeather.hourly_forecast[1].FCTTIME.civil}</p>
+	//     </div>
+	//
+	//     <div>
+	//       <img alt="forecast-icon" src={currentWeather.hourly_forecast[2].icon_url}/>
+	//       <p>{currentWeather.hourly_forecast[2].temp.english} °F</p>
+	//       <p>{currentWeather.hourly_forecast[2].FCTTIME.civil}</p>
+	//     </div>
+	//
+	//     <div>
+	//       <img alt="forecast-icon" src={currentWeather.hourly_forecast[3].icon_url}/>
+	//       <p>{currentWeather.hourly_forecast[3].temp.english} °F</p>
+	//       <p>{currentWeather.hourly_forecast[3].FCTTIME.civil}</p>
+	//     </div>
+	//
+	//     <div>
+	//       <img alt="forecast-icon" src={currentWeather.hourly_forecast[4].icon_url}/>
+	//       <p>{currentWeather.hourly_forecast[4].temp.english} °F</p>
+	//       <p>{currentWeather.hourly_forecast[4].FCTTIME.civil}</p>
+	//     </div>
+	//
+	//     <div>
+	//       <img alt="forecast-icon" src={currentWeather.hourly_forecast[5].icon_url}/>
+	//       <p>{currentWeather.hourly_forecast[5].temp.english} °F</p>
+	//       <p>{currentWeather.hourly_forecast[5].FCTTIME.civil}</p>
+	//     </div>
+	//
+	//     <div>
+	//       <img alt="forecast-icon" src={currentWeather.hourly_forecast[6].icon_url}/>
+	//       <p>{currentWeather.hourly_forecast[6].temp.english} °F</p>
+	//       <p>{currentWeather.hourly_forecast[6].FCTTIME.civil}</p>
+	//     </div>
+	//   </section>
+	// );
 
 	exports.default = HourlyCard;
 
@@ -30156,7 +30112,6 @@
 	        null,
 	        _react2.default.createElement('input', { type: 'text',
 	          className: 'user-input',
-	          'aria-label': 'location',
 	          placeholder: 'City, State',
 	          value: this.props.location,
 	          onChange: function onChange(e) {
